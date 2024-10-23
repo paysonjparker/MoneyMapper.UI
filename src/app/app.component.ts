@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavigationBarComponent } from './core/components/navigation-bar/navigation-bar.component';
 
 
 @Component({
@@ -12,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterOutlet,
     FormsModule,
     ReactiveFormsModule,
+    NavigationBarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
