@@ -1,2 +1,4 @@
-export interface UpdateCategory {
+export interface UpdateCategoryRequest {
+    description: string,
+    planned: number,
 }

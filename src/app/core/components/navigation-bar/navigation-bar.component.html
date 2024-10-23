@@ -9,6 +9,7 @@
         </a>
     </ng-template>
     <ng-template pTemplate="end">
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" label="P" size="large" />
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+            label="{{loggedInUser.fullName.charAt(0).toUpperCase()}}" size="large" />
     </ng-template>
 </p-menubar>

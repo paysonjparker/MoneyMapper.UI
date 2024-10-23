@@ -1,2 +1,4 @@
-export interface AddBudget {
+export interface AddBudgetRequest {
+    userId: number,
+    description: string,
 }

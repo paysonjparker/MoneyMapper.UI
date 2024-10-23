@@ -1,2 +1,3 @@
-export interface UpdateBudget {
+export interface UpdateBudgetRequest {
+    description: string,
 }
