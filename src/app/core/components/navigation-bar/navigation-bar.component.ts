@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
-import { User } from '../../models/user/user.response';
+import { UserResponse } from '../../models/user/user.response';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -18,7 +18,7 @@ export class NavigationBarComponent implements OnInit {
 
   menuItems!: MenuItem[]
 
-  loggedInUser!: User;
+  loggedInUser!: UserResponse;
 
   ngOnInit() {
     this.loggedInUser = {
