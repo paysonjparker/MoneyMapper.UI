@@ -1,1 +1,14 @@
-<p>navigation-bar works!</p>
+<p-menubar [model]="menuItems">
+    <ng-template pTemplate="start">
+
+    </ng-template>
+    <ng-template pTemplate="item" let-item let-root="root">
+        <a pRipple class="flex align-items-center p-menuitem-link">
+            <span [class]="item.icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+        </a>
+    </ng-template>
+    <ng-template pTemplate="end">
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" label="P" size="large" />
+    </ng-template>
+</p-menubar>

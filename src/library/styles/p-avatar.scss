@@ -1,0 +1,8 @@
+@import './variables.scss';
+
+::ng-deep {
+
+    .p-avatar {
+        background: $gray-800;
+    }
+}
