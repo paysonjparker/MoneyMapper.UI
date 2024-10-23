@@ -1,0 +1,14 @@
+@import './variables.scss';
+
+::ng-deep {
+
+    .p-menu-item-login {
+        border-radius: 6px;
+        padding:0.75rem 1.25rem;
+    }
+
+    .p-menu-item-login:hover {
+        background-color: #ffffff08;
+    }
+
+}

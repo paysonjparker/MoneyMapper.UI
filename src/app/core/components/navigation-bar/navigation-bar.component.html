@@ -1,15 +1,23 @@
 <p-menubar [model]="menuItems">
     <ng-template pTemplate="start">
-
+        <img class="mr-2" src="https://cdn-icons-png.flaticon.com/128/12740/12740855.png" width="40" height="40" />
     </ng-template>
-    <ng-template pTemplate="item" let-item let-root="root">
-        <a pRipple class="flex align-items-center p-menuitem-link">
+    <ng-template pTemplate=" item" let-item>
+        <a class="flex align-items-center p-menuitem-link" (click)="navigateHome()">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
         </a>
     </ng-template>
     <ng-template pTemplate="end">
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-            label="{{loggedInUser.fullName.charAt(0).toUpperCase()}}" size="large" />
+        <div *ngIf="loggedInUser; else noLoggedInUser">
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                label="{{loggedInUser.fullName.charAt(0).toUpperCase()}}" size="large" />
+        </div>
+        <ng-template #noLoggedInUser>
+            <a class="p-menuitem-link p-menu-item-login" (click)="navigateToLoginPage()">
+                <span class="pi pi-sign-in"></span>
+                <span class="ml-2">Login</span>
+            </a>
+        </ng-template>
     </ng-template>
 </p-menubar>

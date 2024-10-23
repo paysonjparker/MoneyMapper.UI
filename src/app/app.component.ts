@@ -1,9 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimeNGConfig } from 'primeng/api';
 import { NavigationBarComponent } from './core/components/navigation-bar/navigation-bar.component';
 import { CommonModule } from '@angular/common';
+import { AuthenticationService } from './core/services/authentication/authentication.service';
 
 
 @Component({
@@ -20,13 +21,19 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+
   title = 'Money Mapper';
+
+  isUserLoggedIn: boolean = false;
 
   /**
    * Constructor for App Component.
    * @param primeNgConfig - An injected instance of PrimeNg's {@link PrimeNGConfig}
    */
-  constructor(private primeNgConfig: PrimeNGConfig) { }
+  constructor(
+    private primeNgConfig: PrimeNGConfig,
+    private authenticationService: AuthenticationService,
+  ) { }
 
   /**
    * NgOnInit lifecycle hook. Executes when application is initialized.

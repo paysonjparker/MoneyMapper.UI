@@ -3,11 +3,14 @@ import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
 import { UserResponse } from '../../models/user/user.response';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
   standalone: true,
   imports: [
+    CommonModule,
     MenubarModule,
     AvatarModule
   ],
@@ -16,18 +19,22 @@ import { UserResponse } from '../../models/user/user.response';
 })
 export class NavigationBarComponent implements OnInit {
 
-  menuItems!: MenuItem[]
+  menuItems!: MenuItem[];
+
+  endMenuItems!: MenuItem[];
 
   loggedInUser!: UserResponse;
 
+  constructor(private router: Router) { }
+
   ngOnInit() {
-    this.loggedInUser = {
-      id: 1,
-      username: 'paysonparker',
-      password: 'password',
-      fullName: 'Payson Parker',
-      emailAddress: 'payson.parker@comcast.net'
-    };
+    // this.loggedInUser = {
+    //   id: 1,
+    //   username: 'paysonparker',
+    //   password: 'password',
+    //   fullName: 'Payson Parker',
+    //   emailAddress: 'payson.parker@comcast.net'
+    // };
 
     this.menuItems = [
       {
@@ -35,5 +42,13 @@ export class NavigationBarComponent implements OnInit {
         icon: 'pi pi-home'
       },
     ];
+  }
+
+  navigateHome() {
+    this.router.navigate(['/']);
+  }
+
+  navigateToLoginPage() {
+    this.router.navigate(['login']);
   }
 }
