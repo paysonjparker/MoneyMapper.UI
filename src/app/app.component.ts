@@ -15,7 +15,7 @@ import { AuthenticationService } from './core/services/authentication/authentica
     RouterOutlet,
     FormsModule,
     ReactiveFormsModule,
-    NavigationBarComponent
+    NavigationBarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -39,7 +39,10 @@ export class AppComponent implements OnInit {
    * NgOnInit lifecycle hook. Executes when application is initialized.
    */
   ngOnInit() {
+
+
+
     // Set PrimeNg Input style to 'filled'.
-    this.primeNgConfig.inputStyle = signal<"outlined" | "filled">("filled")
+    this.primeNgConfig.inputStyle = signal<"outlined" | "filled">("filled");
   }
 }
