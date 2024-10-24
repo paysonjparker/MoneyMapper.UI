@@ -42,7 +42,7 @@ export class RegisterComponent {
         nonNullable: true,
       }),
       emailAddress: new FormControl<string>('', {
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.email],
         nonNullable: true,
       }),
       username: new FormControl<string>('', {

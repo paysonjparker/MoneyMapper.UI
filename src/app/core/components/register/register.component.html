@@ -21,6 +21,10 @@
                             id="emailAddress">
                             Email address is required.</small>
                     </div>
+                    <div *ngIf="registerForm.get('emailAddress')?.hasError('email')">
+                        <small class="p-error block pt-2" id="emailAddress">
+                            Please enter a valid email address.</small>
+                    </div>
                 </div>
                 <div class="field col-12 md:col-6">
                     <label htmlFor="username" for="username">Username</label>
