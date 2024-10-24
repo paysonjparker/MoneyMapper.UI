@@ -5,6 +5,8 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { LoginRequest } from '../../models/authentication/login.request';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -54,11 +57,24 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    const loginRequest: LoginRequest = {
+      username: this.loginForm.get('username')?.value,
+      password: this.loginForm.get('password')?.value,
+    };
 
+    this.authenticationService.login(loginRequest).subscribe({
+      next: data => {
+        console.info(data);
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   signUp() {
-
+    this.router.navigate(['register']);
   }
 
 }
