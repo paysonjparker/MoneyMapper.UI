@@ -1,1 +1,52 @@
-<p>register works!</p>
+<div class="flex justify-content-center align-content-center flex-wrap">
+    <p-card class="p-card register-card" [header]="'Sign Up'">
+        <div [formGroup]="registerForm">
+            <div class="formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="fullName" for="fullName">Full Name</label>
+                    <input pInputText class="w-full" id="fullName" aria-label="Enter full name"
+                        formControlName="fullName" [ngClass]="{'border-danger': validateRequiredFields('fullName')}" />
+                    <div *ngIf="registerForm.get('fullName')?.hasError('required')">
+                        <small class="p-error block pt-2" *ngIf="validateRequiredFields('fullName')" id="fullName">
+                            Full name is required.</small>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="emailAddress" for="emailAddress">Email Address</label>
+                    <input pInputText class="w-full" id="emailAddress" aria-label="Enter full name"
+                        formControlName="emailAddress"
+                        [ngClass]="{'border-danger': validateRequiredFields('emailAddress')}" />
+                    <div *ngIf="registerForm.get('emailAddress')?.hasError('required')">
+                        <small class="p-error block pt-2" *ngIf="validateRequiredFields('emailAddress')"
+                            id="emailAddress">
+                            Email address is required.</small>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="username" for="username">Username</label>
+                    <input pInputText class="w-full" id="username" aria-label="Enter username"
+                        formControlName="username" [ngClass]="{'border-danger': validateRequiredFields('username')}" />
+                    <div *ngIf="registerForm.get('username')?.hasError('required')">
+                        <small class="p-error block pt-2" *ngIf="validateRequiredFields('username')" id="username">
+                            Username is required.</small>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="password" for="password">Password</label>
+                    <input pInputText class="w-full" type="password" id="password" aria-label="Enter password"
+                        formControlName="password" [ngClass]="{'border-danger': validateRequiredFields('password')}" />
+                    <div *ngIf="registerForm.get('password')?.hasError('required')">
+                        <small class="p-error block pt-2" *ngIf="validateRequiredFields('password')" id="password">
+                            Password is required.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="Sign up" icon="pi pi-user-plus" [disabled]="registerForm.invalid || registerForm.pristine"
+                (onClick)="register()"></p-button>
+            <p-button label="Back to login" icon="pi pi-sign-in" styleClass="p-button-secondary"
+                [style]="{ 'margin-left': '.5em' }" (onClick)="navigateToLogin()"></p-button>
+        </ng-template>
+    </p-card>
+</div>

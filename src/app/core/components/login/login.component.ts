@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
 
-
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
@@ -73,7 +72,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  signUp() {
+  navigateToRegister() {
     this.router.navigate(['register']);
   }
 
