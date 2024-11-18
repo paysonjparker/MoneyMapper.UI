@@ -1,5 +1,5 @@
 <div class="flex justify-content-center align-content-center flex-wrap">
-    <p-card class="p-card sign-up-card" [header]="'Login'">
+    <p-card *ngIf="!isUserLoggedIn" class="p-card sign-up-card" [header]="'Login'">
         <div [formGroup]="loginForm">
             <div class="field">
                 <label htmlFor="username" for="username">Username</label>
@@ -27,4 +27,5 @@
                 [style]="{ 'margin-left': '.5em' }" (onClick)="navigateToRegister()"></p-button>
         </ng-template>
     </p-card>
+    <div *ngIf="bearerToken">{{bearerToken}}</div>
 </div>

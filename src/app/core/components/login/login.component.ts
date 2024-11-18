@@ -23,6 +23,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  isUserLoggedIn = false;
+
+  bearerToken!: string;
+
   loginForm!: FormGroup;
 
   constructor(
@@ -32,6 +36,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (localStorage.getItem('AuthToken') !== null) {
+      this.isUserLoggedIn = true;
+      this.bearerToken = localStorage.getItem('AuthToken')?.toString() || 'noBearerToken';
+    };
     this.loginForm = this.createLoginForm();
   }
 
@@ -64,6 +72,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(loginRequest).subscribe({
       next: data => {
         console.info(data);
+        this.isUserLoggedIn = true;
         this.router.navigate(['/']);
       },
       error: (error) => {

@@ -5,6 +5,8 @@ import { PrimeNGConfig } from 'primeng/api';
 import { NavigationBarComponent } from './core/components/navigation-bar/navigation-bar.component';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
+import { BrowserAnimationsModule, NoopAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @Component({
@@ -32,16 +34,12 @@ export class AppComponent implements OnInit {
    */
   constructor(
     private primeNgConfig: PrimeNGConfig,
-    private authenticationService: AuthenticationService,
   ) { }
 
   /**
    * NgOnInit lifecycle hook. Executes when application is initialized.
    */
   ngOnInit() {
-
-
-
     // Set PrimeNg Input style to 'filled'.
     this.primeNgConfig.inputStyle = signal<"outlined" | "filled">("filled");
   }

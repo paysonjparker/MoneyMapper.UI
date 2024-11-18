@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environments } from '../../environments/environments';
-import { UserResponse } from '../../models/user/user.response';
-import { AddUserRequest } from '../../models/user/add-user.request';
 import { LoginRequest } from '../../models/authentication/login.request';
-import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../../models/authentication/login.response';
+import { Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,40 +11,40 @@ import { LoginResponse } from '../../models/authentication/login.response';
 export class AuthenticationService {
 
   readonly moneyMapperApiUrl = environments.moneyMapperLocalApi;
-  // private userSubject: BehaviorSubject<UserResponse>;
-  // public user: Observable<UserResponse>
-
-  // constructor(private http: HttpClient) {
-  //   this.userSubject = new BehaviorSubject<UserResponse>(JSON.parse(localStorage.getItem('user') || '{}'));
-  //   this.user = this.userSubject.asObservable();
-  // }
-
-  // public register(addUserRequest: AddUserRequest): Observable<UserResponse> {
-  //   return this.http.post<UserResponse>(this.moneyMapperApiUrl + "/users", addUserRequest)
-  //     .pipe(map(user => {
-  //       localStorage.setItem('user', JSON.stringify(user));
-  //       this.userSubject.next(user);
-  //       return user;
-  //     }));
-  // }
-
-  // public login(userLoginRequest: LoginRequest) {
-  //   return this.http.post<LoginResponse>(this.moneyMapperApiUrl + "/users/authenticate", userLoginRequest);
-  // }
-
-  // public logout() {
-
-  // }
-
-  // public authenticate() {
-
-  // }
 
   constructor(private http: HttpClient) { }
 
-  login(loginRequest: LoginRequest) {
-    return this.http.post<LoginResponse>(`${this.moneyMapperApiUrl} + /users/authenticate`, loginRequest)
-    // this is just the HTTP call, 
-    // we still need to handle the reception of the token
+  public login(userLoginRequest: LoginRequest) {
+    return this.http.post<LoginResponse>(this.moneyMapperApiUrl + "/users/authenticate", userLoginRequest)
+      .pipe(tap(result => this.setSession(result)));
   }
+
+  private setSession(authResult: any) {
+    localStorage.setItem('AuthToken', authResult.token);
+    localStorage.setItem('FullName', authResult.fullName);
+    localStorage.setItem('Username', authResult.username);
+    localStorage.setItem('UserId', authResult.id);
+  }
+
+  logout() {
+    localStorage.removeItem('AuthToken');
+    localStorage.removeItem('FullName');
+    localStorage.removeItem('Username');
+    localStorage.removeItem('UserId');
+  }
+
+  isLoggedIn() {
+    const isLoggedIn = this.getAuthToken !== null;
+    return isLoggedIn;
+  }
+
+  isLoggedOut() {
+    return !this.isLoggedIn();
+  }
+
+  getAuthToken() {
+    return localStorage.getItem('AuthToken');
+  }
+
+
 }

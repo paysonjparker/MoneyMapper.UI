@@ -5,4 +5,8 @@
     .p-avatar {
         background: $gray-800;
     }
+
+    .p-avatar:hover {
+        cursor: pointer;
+    }
 }

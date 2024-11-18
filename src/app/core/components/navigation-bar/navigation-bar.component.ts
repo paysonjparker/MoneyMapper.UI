@@ -5,6 +5,10 @@ import { AvatarModule } from 'primeng/avatar';
 import { UserResponse } from '../../models/user/user.response';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ButtonModule } from 'primeng/button';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -12,7 +16,9 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     MenubarModule,
-    AvatarModule
+    AvatarModule,
+    OverlayPanelModule,
+    ButtonModule
   ],
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.scss'
@@ -25,16 +31,14 @@ export class NavigationBarComponent implements OnInit {
 
   loggedInUser!: UserResponse;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private authenticationService: AuthenticationService,
+  ) { }
 
   ngOnInit() {
-    // this.loggedInUser = {
-    //   id: 1,
-    //   username: 'paysonparker',
-    //   password: 'password',
-    //   fullName: 'Payson Parker',
-    //   emailAddress: 'payson.parker@comcast.net'
-    // };
+    this.getLoggedInUserInfo();
 
     this.menuItems = [
       {
@@ -44,11 +48,38 @@ export class NavigationBarComponent implements OnInit {
     ];
   }
 
+  getLoggedInUserInfo() {
+    if (this.isUserLoggedIn()) {
+      this.userService.getUserById(Number(localStorage.getItem('UserId'))).subscribe({
+        next: data => {
+          this.loggedInUser = data;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+    }
+  }
+
   navigateHome() {
     this.router.navigate(['/']);
   }
 
   navigateToLoginPage() {
+    this.router.navigate(['login']);
+  }
+
+  isUserLoggedIn(): boolean {
+    if (localStorage.getItem('AuthToken') !== null && localStorage.getItem('UserId') !== null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    location.reload();
     this.router.navigate(['login']);
   }
 }
