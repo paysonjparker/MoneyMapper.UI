@@ -34,7 +34,7 @@ export class AuthenticationService {
   }
 
   isLoggedIn() {
-    const isLoggedIn = this.getAuthToken !== null;
+    const isLoggedIn = this.getAuthToken() !== null;
     return isLoggedIn;
   }
 

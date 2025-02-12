@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { LoginRequest } from '../../models/authentication/login.request';
 import { Router } from '@angular/router';
+import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: 'app-login',

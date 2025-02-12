@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
@@ -70,7 +70,7 @@ export class NavigationBarComponent implements OnInit {
   }
 
   isUserLoggedIn(): boolean {
-    if (typeof window !== 'undefined' && window.localStorage && localStorage?.getItem('AuthToken') !== null && localStorage?.getItem('UserId') !== null) {
+    if (typeof window !== 'undefined' && window.localStorage && this.authenticationService.isLoggedIn()) {
       return true;
     }
     return false;

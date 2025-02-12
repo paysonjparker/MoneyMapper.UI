@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
   /**
    *
    */
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(
+    private authenticationService: AuthenticationService
+  ) { }
 
   ngOnInit(): void {
     this.isUserLoggedIn = this.checkIfUserIsLoggedIn();

@@ -19,6 +19,9 @@ import { BrowserModule } from '@angular/platform-browser';
     ReactiveFormsModule,
     NavigationBarComponent,
   ],
+  providers: [
+    AuthenticationService
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
