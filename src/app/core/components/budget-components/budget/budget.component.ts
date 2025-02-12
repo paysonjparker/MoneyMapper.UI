@@ -13,6 +13,10 @@ import { DialogModule } from 'primeng/dialog';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { AddCategoryRequest } from '../../../models/category/add-category.request';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { CategoryResponse } from '../../../models/category/category.response';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-budget',
@@ -24,7 +28,12 @@ import { AddCategoryRequest } from '../../../models/category/add-category.reques
     ButtonModule,
     DialogModule,
     ReactiveFormsModule,
-    InputTextModule
+    InputTextModule,
+    ConfirmPopupModule,
+    ToastModule
+  ],
+  providers: [
+    ConfirmationService, MessageService
   ],
   templateUrl: './budget.component.html',
   styleUrl: './budget.component.scss'
@@ -45,7 +54,8 @@ export class BudgetComponent implements OnInit {
     private expenseService: ExpenseService,
     private incomeService: IncomeService,
     private formBuilder: FormBuilder,
-
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -172,6 +182,29 @@ export class BudgetComponent implements OnInit {
       error: (error) => {
         console.error(error);
       },
+    });
+  }
+
+  confirmDeleteCategory(event: Event, category: CategoryResponse) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Are you sure you want to delete ${category.description} ?`,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.categoryService.deleteCategory(category.id).subscribe({
+          next: data => {
+            console.info(data);
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: `You have deleted category: ${category.description}`, key: 'br', life: 3000 });
+            this.getAllCategories();
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        });
+      },
+      reject: () => {
+
+      }
     });
   }
 

@@ -37,6 +37,7 @@
             <p-table [value]="budget.categories!" styleClass="p-datatable-striped">
                 <ng-template pTemplate="header">
                     <tr>
+                        <th [width]="5"></th>
                         <th>Description</th>
                         <th>Planned</th>
                         <th>Spent</th>
@@ -45,16 +46,19 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-category>
                     <tr>
+                        <td><p-button (click)="confirmDeleteCategory($event, category)" icon="pi pi-trash"
+                                severity="danger" [rounded]="true" [text]="true"></p-button>
+                        </td>
                         <td>{{ category.description }}</td>
                         <td>{{ category.planned }}</td>
-                        <td>{{ category.spent
-                            }}</td>
+                        <td>{{ category.spent }}</td>
                         <td [ngStyle]="{'color': category.remaining <= 0 ? '#f87171' : '#34d399'}">{{ category.remaining
-                            }}
-                        </td>
+                            }}</td>
                     </tr>
                 </ng-template>
             </p-table>
+            <p-confirmPopup />
         </p-tabPanel>
     </p-tabView>
 </div>
+<p-toast position="bottom-right" key="br" />
