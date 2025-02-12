@@ -2,7 +2,7 @@ import { Component, NgModule, OnInit } from '@angular/core';
 import { BudgetService } from '../../../services/budget/budget.service';
 import { BudgetResponse } from '../../../models/budget/budget.response';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
-import { TableModule } from 'primeng/table';
+import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../../services/category/category.service';
@@ -18,6 +18,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { CategoryResponse } from '../../../models/category/category.response';
 import { ToastModule } from 'primeng/toast';
 import { UpdateCategoryRequest } from '../../../models/category/update-category.request';
+import { CalendarModule } from 'primeng/calendar';
+import { AddExpenseRequest } from '../../../models/expense/add-expense.request';
 
 @Component({
   selector: 'app-budget',
@@ -32,7 +34,8 @@ import { UpdateCategoryRequest } from '../../../models/category/update-category.
     InputTextModule,
     ConfirmPopupModule,
     ToastModule,
-    FormsModule
+    FormsModule,
+    CalendarModule
   ],
   providers: [
     ConfirmationService, MessageService
@@ -46,8 +49,13 @@ export class BudgetComponent implements OnInit {
 
   createCategoryDialogVisible: boolean = false;
 
+  createExpenseDialogVisible: boolean = false;
+
   createCategoryForm!: FormGroup;
 
+  createExpenseForm!: FormGroup;
+
+  expandedRows = {};
 
   constructor(
     private budgetService: BudgetService,
@@ -66,6 +74,8 @@ export class BudgetComponent implements OnInit {
     }
 
     this.createCategoryForm = this.createAddCategoryForm();
+    this.createExpenseForm = this.createAddExpenseForm();
+
   }
 
   createAddCategoryForm(): FormGroup {
@@ -75,6 +85,23 @@ export class BudgetComponent implements OnInit {
         nonNullable: true,
       }),
       planned: new FormControl<number>(0, {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+    });
+  }
+
+  createAddExpenseForm(): FormGroup {
+    return this.formBuilder.group({
+      date: new FormControl<string>('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      description: new FormControl<string>('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      total: new FormControl<number>(0, {
         validators: [Validators.required],
         nonNullable: true,
       }),
@@ -219,6 +246,38 @@ export class BudgetComponent implements OnInit {
     this.categoryService.updateCategory(category.id, updateCategoryRequest).subscribe({
       next: data => {
         console.info(data);
+        this.getAllCategories();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  onRowExpand(event: TableRowExpandEvent) {
+    this.messageService.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+  }
+
+  onRowCollapse(event: TableRowCollapseEvent) {
+    this.messageService.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
+  }
+
+  showCreateExpenseDialog() {
+    this.createExpenseDialogVisible = true;
+  }
+
+  addExpense(categoryId: number) {
+    const addExpenseRequest: AddExpenseRequest = {
+      total: this.createExpenseForm.get('total')?.value,
+      date: this.createExpenseForm.get('date')?.value,
+      description: this.createExpenseForm.get('description')?.value,
+      categoryId: categoryId
+    };
+
+    this.expenseService.createExpense(addExpenseRequest).subscribe({
+      next: data => {
+        console.info(data);
+        this.createExpenseDialogVisible = false
         this.getAllCategories();
       },
       error: (error) => {

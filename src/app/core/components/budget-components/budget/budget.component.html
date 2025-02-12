@@ -34,20 +34,26 @@
                     <p-button label="Add" (onClick)="addCategory(budget.id)" />
                 </div>
             </p-dialog>
-            <p-table [value]="budget.categories!" styleClass="p-datatable-striped">
+            <p-table [value]="budget.categories!" dataKey="id" styleClass="p-datatable-striped"
+                [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)"
+                (onRowCollapse)="onRowCollapse($event)">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Description</th>
-                        <th>Planned</th>
-                        <th>Spent</th>
-                        <th>Remaining</th>
+                        <th [width]="5"></th>
+                        <th pSortableColumn="description">Description <p-sortIcon field="description" /></th>
+                        <th pSortableColumn="planned">Planned <p-sortIcon field="planned" /></th>
+                        <th pSortableColumn="spent">Spent <p-sortIcon field="spent" /></th>
+                        <th pSortableColumn="remaining">Remaining <p-sortIcon field="remaining" /></th>
                         <th [width]="5"></th>
 
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-category>
+                <ng-template pTemplate="body" let-category let-expanded="expanded">
                     <tr>
-
+                        <td>
+                            <p-button type="button" pRipple [pRowToggler]="category" [text]="true" [rounded]="true"
+                                [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                        </td>
                         <td [pEditableColumn]="category.description" pEditableColumnField="description">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
@@ -71,10 +77,10 @@
                             </p-cellEditor>
                         </td>
                         <td>
-                            {{ category.spent }}
+                            {{ category.spent | number:'1.2-2' }}
                         </td>
                         <td [ngStyle]="{'color': category.remaining <= 0 ? '#f87171' : '#34d399'}">
-                            {{ category.remaining }}
+                            {{ category.remaining | number:'1.2-2' }}
                         </td>
                         <td>
                             <p-button (click)="confirmDeleteCategory($event, category)" icon="pi pi-trash"
@@ -83,9 +89,80 @@
                         </td>
                     </tr>
                 </ng-template>
+
+                <ng-template pTemplate="rowexpansion" let-category>
+                    <tr>
+                        <td colspan="7">
+                            <div class="p-3">
+                                <div class="p-2">
+                                    <p-button label="Add Expense" (onClick)="showCreateExpenseDialog()"></p-button>
+                                </div>
+                                <p-dialog header="Add Expense" [modal]="true" [(visible)]="createExpenseDialogVisible"
+                                    [style]="{ width: '25rem' }">
+                                    <div [formGroup]="createExpenseForm">
+                                        <div class="field">
+                                            <label htmlFor="date" for="date">Date</label>
+                                            <input pInputText type="date" class="w-full" id="date"
+                                                aria-label="Enter date" formControlName="date" />
+                                            <div *ngIf="createExpenseForm.get('date')?.hasError('required')">
+                                                <small class="p-error block pt-2" id="date">
+                                                    Date is required.</small>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label htmlFor="description" for="description">Description</label>
+                                            <input pInputText type="text" class="w-full" id="description"
+                                                aria-label="Enter description" formControlName="description" />
+                                            <div *ngIf="createExpenseForm.get('description')?.hasError('required')">
+                                                <small class="p-error block pt-2" id="description">
+                                                    Description is required.</small>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label htmlFor="total" for="total">Total</label>
+                                            <input pInputText type="number" class="w-full" id="total"
+                                                aria-label="Enter total" formControlName="total" />
+                                            <div *ngIf="createExpenseForm.get('total')?.hasError('required')">
+                                                <small class="p-error block pt-2" id="total">
+                                                    Total is required.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-content-end gap-2">
+                                        <p-button label="Cancel" severity="secondary"
+                                            (onClick)="createCategoryDialogVisible = false" />
+                                        <p-button label="Add" (onClick)="addExpense(category.id)" />
+                                    </div>
+                                </p-dialog>
+                                <p-table [value]="category.expenses" dataKey="id">
+                                    <ng-template pTemplate="header">
+
+                    <tr>
+                        <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
+                        <th pSortableColumn="description">Description <p-sortIcon field="description" /></th>
+                        <th pSortableColumn="total">Total <p-sortIcon field="total" /></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-expense>
+                    <tr>
+                        <td>{{ expense.date | date: 'MM/dd/yyyy' }}</td>
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.total | number:'1.2-2' }}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">There are no expenses in this category yet.</td>
+                    </tr>
+                </ng-template>
             </p-table>
-            <p-confirmPopup />
-        </p-tabPanel>
-    </p-tabView>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+<p-confirmPopup />
+</p-tabPanel>
+</p-tabView>
 </div>
 <p-toast position="bottom-right" key="br" />

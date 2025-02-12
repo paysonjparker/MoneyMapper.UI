@@ -51,8 +51,14 @@ export class NavigationBarComponent implements OnInit {
     this.menuItems = [
       {
         label: 'Home',
-        icon: 'pi pi-home'
+        icon: 'pi pi-home',
+        route: ''
       },
+      {
+        label: 'Add Budget',
+        icon: 'pi pi-shopping-bag',
+        route: '/add-budget'
+      }
     ];
   }
 

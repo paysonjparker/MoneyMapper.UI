@@ -3,6 +3,7 @@ import { LoginComponent } from './core/components/login/login.component';
 import { HomeComponent } from './core/components/home/home.component';
 import { RegisterComponent } from './core/components/register/register.component';
 import { authGuard } from './core/guards/auth.guard';
+import { AddBudgetComponent } from './core/components/budget-components/add-budget/add-budget.component';
 
 export const routes: Routes = [
     {
@@ -10,6 +11,11 @@ export const routes: Routes = [
         path: '',
         component: HomeComponent,
         canActivate: [authGuard]
+    },
+    {
+        title: 'Add Budget',
+        path: 'add-budget',
+        component: AddBudgetComponent
     },
     {
         title: 'Login',

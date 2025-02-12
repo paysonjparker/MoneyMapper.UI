@@ -3,7 +3,7 @@
         <img class="mr-2" src="https://cdn-icons-png.flaticon.com/128/12740/12740855.png" width="40" height="40" />
     </ng-template>
     <ng-template pTemplate=" item" let-item>
-        <a class="flex align-items-center p-menuitem-link" (click)="navigateHome()">
+        <a [routerLink]="item.route" class="flex align-items-center p-menuitem-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
         </a>
