@@ -1,12 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimeNGConfig } from 'primeng/api';
 import { NavigationBarComponent } from './core/components/navigation-bar/navigation-bar.component';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
-import { BrowserAnimationsModule, NoopAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 
 
 @Component({

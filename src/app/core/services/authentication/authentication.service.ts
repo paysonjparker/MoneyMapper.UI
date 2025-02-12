@@ -3,7 +3,7 @@ import { environments } from '../../environments/environments';
 import { LoginRequest } from '../../models/authentication/login.request';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../../models/authentication/login.response';
-import { Subject, tap } from 'rxjs';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
