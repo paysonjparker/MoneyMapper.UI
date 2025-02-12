@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { BudgetService } from '../../../services/budget/budget.service';
 import { BudgetResponse } from '../../../models/budget/budget.response';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
@@ -10,13 +10,14 @@ import { ExpenseService } from '../../../services/expense/expense.service';
 import { IncomeService } from '../../../services/income/income.service';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { AddCategoryRequest } from '../../../models/category/add-category.request';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CategoryResponse } from '../../../models/category/category.response';
 import { ToastModule } from 'primeng/toast';
+import { UpdateCategoryRequest } from '../../../models/category/update-category.request';
 
 @Component({
   selector: 'app-budget',
@@ -30,7 +31,8 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     InputTextModule,
     ConfirmPopupModule,
-    ToastModule
+    ToastModule,
+    FormsModule
   ],
   providers: [
     ConfirmationService, MessageService
@@ -205,6 +207,23 @@ export class BudgetComponent implements OnInit {
       reject: () => {
 
       }
+    });
+  }
+
+  updateCategory(category: CategoryResponse) {
+    const updateCategoryRequest: UpdateCategoryRequest = {
+      description: category.description,
+      planned: category.planned,
+    };
+
+    this.categoryService.updateCategory(category.id, updateCategoryRequest).subscribe({
+      next: data => {
+        console.info(data);
+        this.getAllCategories();
+      },
+      error: (error) => {
+        console.error(error);
+      },
     });
   }
 

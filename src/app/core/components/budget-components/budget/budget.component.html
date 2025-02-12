@@ -37,23 +37,50 @@
             <p-table [value]="budget.categories!" styleClass="p-datatable-striped">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th [width]="5"></th>
                         <th>Description</th>
                         <th>Planned</th>
                         <th>Spent</th>
                         <th>Remaining</th>
+                        <th [width]="5"></th>
+
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-category>
                     <tr>
-                        <td><p-button (click)="confirmDeleteCategory($event, category)" icon="pi pi-trash"
-                                severity="danger" [rounded]="true" [text]="true"></p-button>
+
+                        <td [pEditableColumn]="category.description" pEditableColumnField="description">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="category.description" required
+                                        (blur)="updateCategory(category)" />
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{ category.description }}
+                                </ng-template>
+                            </p-cellEditor>
                         </td>
-                        <td>{{ category.description }}</td>
-                        <td>{{ category.planned }}</td>
-                        <td>{{ category.spent }}</td>
-                        <td [ngStyle]="{'color': category.remaining <= 0 ? '#f87171' : '#34d399'}">{{ category.remaining
-                            }}</td>
+                        <td [pEditableColumn]="category.planned" pEditableColumnField="description">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="number" [(ngModel)]="category.planned" required
+                                        (blur)="updateCategory(category)" />
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{ category.planned }}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            {{ category.spent }}
+                        </td>
+                        <td [ngStyle]="{'color': category.remaining <= 0 ? '#f87171' : '#34d399'}">
+                            {{ category.remaining }}
+                        </td>
+                        <td>
+                            <p-button (click)="confirmDeleteCategory($event, category)" icon="pi pi-trash"
+                                severity="danger" [rounded]="true" [text]="true">
+                            </p-button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
