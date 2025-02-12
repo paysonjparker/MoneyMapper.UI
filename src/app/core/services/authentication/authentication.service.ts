@@ -20,17 +20,17 @@ export class AuthenticationService {
   }
 
   private setSession(authResult: any) {
-    localStorage.setItem('AuthToken', authResult.token);
-    localStorage.setItem('FullName', authResult.fullName);
-    localStorage.setItem('Username', authResult.username);
-    localStorage.setItem('UserId', authResult.id);
+    localStorage?.setItem('AuthToken', authResult.token);
+    localStorage?.setItem('FullName', authResult.fullName);
+    localStorage?.setItem('Username', authResult.username);
+    localStorage?.setItem('UserId', authResult.id);
   }
 
   logout() {
-    localStorage.removeItem('AuthToken');
-    localStorage.removeItem('FullName');
-    localStorage.removeItem('Username');
-    localStorage.removeItem('UserId');
+    localStorage?.removeItem('AuthToken');
+    localStorage?.removeItem('FullName');
+    localStorage?.removeItem('Username');
+    localStorage?.removeItem('UserId');
   }
 
   isLoggedIn() {
@@ -43,8 +43,17 @@ export class AuthenticationService {
   }
 
   getAuthToken() {
-    return localStorage.getItem('AuthToken');
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage?.getItem('AuthToken');
+    }
+    return null;
   }
 
+  getUserId() {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage?.getItem('UserId');
+    }
+    return null;
+  }
 
 }

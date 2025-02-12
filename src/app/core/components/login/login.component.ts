@@ -36,9 +36,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (localStorage.getItem('AuthToken') !== null) {
+    if (typeof window !== 'undefined' && window.localStorage && localStorage?.getItem('AuthToken') !== null) {
       this.isUserLoggedIn = true;
-      this.bearerToken = localStorage.getItem('AuthToken')?.toString() || 'noBearerToken';
+      this.bearerToken = localStorage?.getItem('AuthToken')?.toString() || 'noBearerToken';
     };
     this.loginForm = this.createLoginForm();
   }

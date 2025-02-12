@@ -50,7 +50,7 @@ export class NavigationBarComponent implements OnInit {
 
   getLoggedInUserInfo() {
     if (this.isUserLoggedIn()) {
-      this.userService.getUserById(Number(localStorage.getItem('UserId'))).subscribe({
+      this.userService.getUserById(Number(localStorage?.getItem('UserId'))).subscribe({
         next: data => {
           this.loggedInUser = data;
         },
@@ -70,11 +70,11 @@ export class NavigationBarComponent implements OnInit {
   }
 
   isUserLoggedIn(): boolean {
-    if (localStorage.getItem('AuthToken') !== null && localStorage.getItem('UserId') !== null) {
+    if (typeof window !== 'undefined' && window.localStorage && localStorage?.getItem('AuthToken') !== null && localStorage?.getItem('UserId') !== null) {
       return true;
-    } else {
-      return false;
     }
+    return false;
+
   }
 
   logout() {

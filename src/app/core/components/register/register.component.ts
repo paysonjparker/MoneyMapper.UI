@@ -21,7 +21,7 @@ import { UserService } from '../../services/user/user.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   registerForm!: FormGroup;
 

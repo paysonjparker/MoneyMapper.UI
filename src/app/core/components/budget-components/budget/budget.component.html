@@ -1,1 +1,27 @@
-<p>budget works!</p>
+<div class="card">
+    <p-tabView [scrollable]="true">
+        <p-tabPanel *ngFor="let budget of budgets" [header]="budget.description">
+            <p-table [value]="budget.categories!" styleClass="p-datatable-striped">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Description</th>
+                        <th>Planned</th>
+                        <th>Spent</th>
+                        <th>Remaining</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-category>
+                    <tr>
+                        <td>{{ category.description }}</td>
+                        <td>{{ category.planned }}</td>
+                        <td>{{ category.spent
+                            }}</td>
+                        <td [ngStyle]="{'color': category.remaining <= 0 ? '#f87171' : '#34d399'}">{{ category.remaining
+                            }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>
+</div>
