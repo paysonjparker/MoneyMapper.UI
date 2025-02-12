@@ -33,7 +33,12 @@ export class BudgetService {
   }
 
   public getAllBudgetsByUserId(userId: number): Observable<BudgetResponse[]> {
-    const url = `${this.moneyMapperApiUrl}/budgets/user/${userId}`;
-    return this.http.get<BudgetResponse[]>(url);
+    if (userId > 0) {
+      const url = `${this.moneyMapperApiUrl}/budgets/user/${userId}`;
+      return this.http.get<BudgetResponse[]>(url);
+    }
+    const empty: Observable<BudgetResponse[]> = new Observable<BudgetResponse[]>;
+    return empty;
+
   }
 }

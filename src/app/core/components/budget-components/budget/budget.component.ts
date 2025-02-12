@@ -33,7 +33,9 @@ export class BudgetComponent implements OnInit {
     private incomeService: IncomeService) { }
 
   ngOnInit() {
-    this.getAllBudgets();
+    if (this.authenticationService.isLoggedIn()) {
+      this.getAllBudgets();
+    }
   }
 
   getAllBudgets() {
