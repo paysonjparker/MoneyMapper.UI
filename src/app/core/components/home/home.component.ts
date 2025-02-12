@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authenticationService.changeLoggedInStatus(true);
     this.isUserLoggedIn = this.checkIfUserIsLoggedIn();
   }
 

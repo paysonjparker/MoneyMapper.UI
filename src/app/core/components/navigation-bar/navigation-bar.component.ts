@@ -31,6 +31,8 @@ export class NavigationBarComponent implements OnInit {
 
   loggedInUser!: UserResponse;
 
+  userIsLoggedIn: boolean = false;
+
   constructor(
     private router: Router,
     private userService: UserService,
@@ -38,6 +40,12 @@ export class NavigationBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.authenticationService.userLoggedInObservable.subscribe(value => {
+      this.userIsLoggedIn = value;
+      this.getLoggedInUserInfo();
+    });
+
     this.getLoggedInUserInfo();
 
     this.menuItems = [

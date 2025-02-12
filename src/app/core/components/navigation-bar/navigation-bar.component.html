@@ -9,7 +9,7 @@
         </a>
     </ng-template>
     <ng-template pTemplate="end">
-        <div *ngIf="loggedInUser; else noLoggedInUser" (click)="logoutPanel.toggle($event)">
+        <div *ngIf="userIsLoggedIn; else noLoggedInUser" (click)="logoutPanel.toggle($event)">
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                 label="{{loggedInUser.fullName.charAt(0).toUpperCase()}}" size="large" />
             <p-overlayPanel #logoutPanel>

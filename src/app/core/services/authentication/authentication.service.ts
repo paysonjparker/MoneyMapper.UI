@@ -3,7 +3,7 @@ import { environments } from '../../environments/environments';
 import { LoginRequest } from '../../models/authentication/login.request';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../../models/authentication/login.response';
-import { tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,9 @@ import { tap } from 'rxjs';
 export class AuthenticationService {
 
   readonly moneyMapperApiUrl = environments.moneyMapperLocalApi;
+
+  private userLoggedIn = new BehaviorSubject<boolean>(false);
+  userLoggedInObservable = this.userLoggedIn.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -54,6 +57,10 @@ export class AuthenticationService {
       return localStorage?.getItem('UserId');
     }
     return null;
+  }
+
+  changeLoggedInStatus(value: boolean) {
+    this.userLoggedIn.next(value);
   }
 
 }
