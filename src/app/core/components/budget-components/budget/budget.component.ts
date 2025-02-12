@@ -6,10 +6,13 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../../services/category/category.service';
-import { CategoryResponse } from '../../../models/category/category.response';
 import { ExpenseService } from '../../../services/expense/expense.service';
 import { IncomeService } from '../../../services/income/income.service';
-import exp from 'constants';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { AddCategoryRequest } from '../../../models/category/add-category.request';
 
 @Component({
   selector: 'app-budget',
@@ -18,6 +21,10 @@ import exp from 'constants';
     CommonModule,
     TableModule,
     TabViewModule,
+    ButtonModule,
+    DialogModule,
+    ReactiveFormsModule,
+    InputTextModule
   ],
   templateUrl: './budget.component.html',
   styleUrl: './budget.component.scss'
@@ -26,16 +33,40 @@ export class BudgetComponent implements OnInit {
 
   budgets: BudgetResponse[] = [];
 
-  constructor(private budgetService: BudgetService,
+  createCategoryDialogVisible: boolean = false;
+
+  createCategoryForm!: FormGroup;
+
+
+  constructor(
+    private budgetService: BudgetService,
     private authenticationService: AuthenticationService,
     private categoryService: CategoryService,
     private expenseService: ExpenseService,
-    private incomeService: IncomeService) { }
+    private incomeService: IncomeService,
+    private formBuilder: FormBuilder,
+
+  ) { }
 
   ngOnInit() {
     if (this.authenticationService.isLoggedIn()) {
       this.getAllBudgets();
     }
+
+    this.createCategoryForm = this.createAddCategoryForm();
+  }
+
+  createAddCategoryForm(): FormGroup {
+    return this.formBuilder.group({
+      description: new FormControl<string>('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      planned: new FormControl<number>(0, {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+    });
   }
 
   getAllBudgets() {
@@ -111,6 +142,36 @@ export class BudgetComponent implements OnInit {
         category.spent = (totalExpense - totalIncome);
         category.remaining = (category.planned - category.spent);
       });
+    });
+  }
+
+  showCreateCategoryDialog() {
+    this.createCategoryDialogVisible = true;
+  }
+
+  validateRequiredFields(formControlName: any) {
+    if (this.createCategoryForm.controls[formControlName].invalid && (this.createCategoryForm.controls[formControlName].dirty || this.createCategoryForm.controls[formControlName].touched)) {
+      return true;
+    }
+    return false;
+  }
+
+  addCategory(budgetId: number) {
+    const addCategoryRequest: AddCategoryRequest = {
+      budgetId: budgetId,
+      description: this.createCategoryForm.get('description')?.value,
+      planned: this.createCategoryForm.get('planned')?.value,
+    };
+
+    this.categoryService.createCategory(addCategoryRequest).subscribe({
+      next: data => {
+        console.info(data);
+        this.createCategoryDialogVisible = false
+        this.getAllCategories();
+      },
+      error: (error) => {
+        console.error(error);
+      },
     });
   }
 
