@@ -3,7 +3,7 @@ import { BudgetComponent } from '../budget-components/budget/budget.component';
 import { ButtonModule } from 'primeng/button';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { CommonModule } from '@angular/common';
-import { BudgetDetailsComponent } from "../budget-components/budget-details-components/budget-details/budget-details.component";
+import { BudgetDetailsComponent } from '../budget-details-components/budget-details/budget-details.component';
 
 @Component({
   selector: 'app-home',
