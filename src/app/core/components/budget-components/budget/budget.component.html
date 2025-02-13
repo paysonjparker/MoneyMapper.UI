@@ -1,5 +1,21 @@
-<h1>Home</h1>
+<div class="flex justify-content-between flex-wrap">
+    <h1>{{budgets[0].description}}</h1>
+    <div class="flex align-content-center flex-wrap">
+        <p-button class="pr-1" icon="pi pi-chevron-left" [outlined]="true" pTooltip="Previous month"
+            tooltipPosition="top" />
+        <p-button icon="pi pi-chevron-right" [outlined]="true" pTooltip="Next month" tooltipPosition="top" />
+    </div>
+</div>
+
 <div class="card">
+    <div *ngFor="let category of budgets[0]?.categories">
+        <div class="pb-2">
+            <app-budget-group [budgetGroupCategory]="category"></app-budget-group>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="card">
     <p-tabView [scrollable]="true">
         <p-tabPanel *ngFor="let budget of budgets" [header]="budget.description">
             <div class="p-2">
@@ -165,5 +181,5 @@
 <p-confirmPopup />
 </p-tabPanel>
 </p-tabView>
-</div>
+</div> -->
 <p-toast position="bottom-right" key="br" />

@@ -12,7 +12,7 @@ import { BudgetDetailsComponent } from '../budget-details-components/budget-deta
     CommonModule,
     BudgetComponent,
     ButtonModule,
-    BudgetDetailsComponent
+    BudgetDetailsComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

@@ -1,0 +1,55 @@
+<p-confirmPopup />
+<p-card styleClass="category">
+    <ng-template pTemplate="header">
+        <div class="grid pr-4 pl-2 pt-2">
+            <div class="col-8 flex align-content-center flex-wrap">
+                <span class="text-4xl font-bold">
+                    {{budgetGroupCategory.description}}
+                </span>
+            </div>
+            <div class="col-2 text-right">
+                <span class="text-color-secondary">
+                    Planned
+                </span>
+                <br>
+                <span class="font-bold">
+                    {{budgetGroupCategory.planned | number:'1.2-2'}}
+                </span>
+            </div>
+            <div class="col-1">
+
+            </div>
+            <div class="col-1 text-right">
+                <span class="text-color-secondary">
+                    Remaining
+                </span>
+                <br>
+                <span class="font-bold"
+                    [ngStyle]="{'color': budgetGroupCategory.remaining <= 0 ? '#f87171' : '#34d399'}">
+                    {{budgetGroupCategory.remaining | number:'1.2-2'}}
+                </span>
+            </div>
+
+        </div>
+    </ng-template>
+    <ng-template pTemplate="cotnent">
+        <p-panel [toggleable]="true">
+            <ng-template pTemplate="header">
+                <span class="font-bold">
+                    Transactions
+                </span>
+            </ng-template>
+            <p class="m-0">
+                Lorem ipsum dolor sit amet...
+            </p>
+        </p-panel>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="flex flex-wrap align-items-center justify-content-between gap-3">
+            <p-button icon="pi pi-plus" rounded="true" text="true" label="Add Expense/Income" />
+            <p-button (click)="confirmDeleteCategory($event, budgetGroupCategory)" icon="pi pi-trash" severity="danger"
+                [rounded]="true" [text]="true">
+            </p-button>
+        </div>
+    </ng-template>
+</p-card>

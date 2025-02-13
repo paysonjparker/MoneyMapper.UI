@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { AfterViewInit, Component, NgModule, OnInit } from '@angular/core';
 import { BudgetService } from '../../../services/budget/budget.service';
 import { BudgetResponse } from '../../../models/budget/budget.response';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
@@ -20,6 +20,9 @@ import { ToastModule } from 'primeng/toast';
 import { UpdateCategoryRequest } from '../../../models/category/update-category.request';
 import { CalendarModule } from 'primeng/calendar';
 import { AddExpenseRequest } from '../../../models/expense/add-expense.request';
+import { TooltipModule } from 'primeng/tooltip';
+import { BudgetGroupComponent } from "../budget-group/budget-group.component";
+
 
 @Component({
   selector: 'app-budget',
@@ -35,7 +38,9 @@ import { AddExpenseRequest } from '../../../models/expense/add-expense.request';
     ConfirmPopupModule,
     ToastModule,
     FormsModule,
-    CalendarModule
+    CalendarModule,
+    TooltipModule,
+    BudgetGroupComponent
   ],
   providers: [
     ConfirmationService, MessageService
@@ -44,6 +49,12 @@ import { AddExpenseRequest } from '../../../models/expense/add-expense.request';
   styleUrl: './budget.component.scss'
 })
 export class BudgetComponent implements OnInit {
+
+  budget: BudgetResponse = {
+    id: 0,
+    description: '',
+    userId: 0
+  };
 
   budgets: BudgetResponse[] = [];
 
@@ -54,6 +65,7 @@ export class BudgetComponent implements OnInit {
   createCategoryForm!: FormGroup;
 
   createExpenseForm!: FormGroup;
+  categories: CategoryResponse[] = [];
 
   expandedRows = {};
 
@@ -69,13 +81,9 @@ export class BudgetComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.authenticationService.isLoggedIn()) {
-      this.getAllBudgets();
-    }
-
+    this.getAllBudgets();
     this.createCategoryForm = this.createAddCategoryForm();
     this.createExpenseForm = this.createAddExpenseForm();
-
   }
 
   createAddCategoryForm(): FormGroup {

@@ -7,4 +7,21 @@
         max-width: 600px;
     }
 
+    .p-card.category .p-card-body {
+        padding: 8px;
+    }
+    .p-card.category .p-card-content {
+        padding: 0px;
+    }
+
+    .p-card.category .p-card-footer {
+        padding-top: 16px;
+        padding-bottom: 8px;
+    }
+
+    .p-card.category .p-card-header {
+        padding: 8px;
+        padding-bottom: 0px;
+    }
+
 }
