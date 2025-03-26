@@ -87,7 +87,8 @@ export class BudgetGroupComponent implements OnInit {
     this.allBudgetGroupTransactions = [
       ...this.budgetGroupExpenses.map(expense => ({ ...expense, transactionType: 'expense' })),
       ...this.budgetGroupIncomes.map(expense => ({ ...expense, transactionType: 'income' }))
-    ];
+    ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
     console.info(this.budgetGroupExpenses);
     console.info(this.budgetGroupIncomes);
     console.info(this.allBudgetGroupTransactions);
