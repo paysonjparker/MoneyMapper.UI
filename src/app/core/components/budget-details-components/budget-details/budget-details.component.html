@@ -1,9 +1,9 @@
 <h1>Budget Details</h1>
 <p-tabView>
     <p-tabPanel header="Summary">
-        <app-budget-summary></app-budget-summary>
+        <app-budget-summary [budgets]="budgets"></app-budget-summary>
     </p-tabPanel>
     <p-tabPanel header="Transactions">
-        <app-transactions></app-transactions>
+        <app-transactions [budgets]="budgets"></app-transactions>
     </p-tabPanel>
 </p-tabView>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BudgetResponse } from '../../../models/budget/budget.response';
 
 @Component({
   selector: 'app-transactions',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './transactions.component.scss'
 })
 export class TransactionsComponent {
+
+  @Input() budgets!: BudgetResponse[];
 
 }
