@@ -13,6 +13,12 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { TransactionResponse } from '../../../models/transaction/transaction.response';
 import { TransactionsComponent } from "../../budget-details-components/transactions/transactions.component";
+import { DialogModule } from 'primeng/dialog';
+import { CreateTransactionComponent } from "../../transaction-components/create-transaction/create-transaction.component";
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-budget-group',
@@ -25,7 +31,11 @@ import { TransactionsComponent } from "../../budget-details-components/transacti
     ConfirmPopupModule,
     CardModule,
     TableModule,
-    TransactionsComponent
+    DialogModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputNumberModule,
+    CalendarModule,
   ],
   providers: [
     ConfirmationService, MessageService
@@ -50,13 +60,18 @@ export class BudgetGroupComponent implements OnInit {
 
   menuOptions: { label?: string; icon?: string; separator?: boolean }[] = [];
 
+  createTransactionDialogVisible: boolean = false;
+
+  createTransactionAdminForm!: FormGroup;
+
   /**
    *
    */
   constructor(
     private categoryService: CategoryService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private formBuilder: FormBuilder,
   ) {
   }
 
@@ -69,6 +84,8 @@ export class BudgetGroupComponent implements OnInit {
     ];
     // this.getCategoryById();
     this.getAllTransactions();
+
+    this.createTransactionAdminForm = this.createTransactionForm()
   }
 
   getCategoryById() {
@@ -116,6 +133,27 @@ export class BudgetGroupComponent implements OnInit {
       },
       reject: () => {
       }
+    });
+  }
+
+  showCreateTransaction() {
+    this.createTransactionDialogVisible = true;
+  }
+
+  createTransactionForm() {
+    return this.formBuilder.group({
+      description: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
+      total: new FormControl<number>(0, {
+        validators: [Validators.required],
+      }),
+      date: new FormControl<Date>(new Date(), {
+        validators: [Validators.required],
+      }),
+      transactionType: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
     });
   }
 

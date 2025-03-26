@@ -65,7 +65,50 @@
     </ng-template>
     <ng-template pTemplate="footer">
         <div class="flex flex-wrap align-items-center justify-content-between gap-3">
-            <p-button icon="pi pi-plus" rounded="true" text="true" label="Add Expense/Income" />
+            <p-button icon="pi pi-plus" rounded="true" text="true" label="Add Expense/Income"
+                (onClick)="showCreateTransaction()" />
+            <p-dialog header="New Transaction" [modal]="true" [(visible)]="createTransactionDialogVisible"
+                [style]="{ width: '50rem' }">
+                <ng-template pTemplate="body">
+                    <div [formGroup]="createTransactionAdminForm">
+
+                        <div class="formgrid grid">
+                            <div class="field col-4">
+                                <label for="total">Total</label>
+                                <p-inputNumber class="w-full" inputId="currency-us" mode="currency" currency="USD"
+                                    formControlName="total" />
+                            </div>
+                            <div class="field col-8">
+                                <label for="description">Description</label>
+                                <input class="w-full" id="description" type="text" pInputText
+                                    formControlName="description" />
+                            </div>
+
+                            <div class="field col-6">
+                                <div class="row pb-2">
+                                    <label for="date">Date</label>
+
+                                </div>
+                                <p-calendar appendTo="body" id="date" class="w-full" formControlName="date" />
+                            </div>
+                            <div class="field col-6">
+
+                            </div>
+                        </div>
+                        <!-- <div class="grid">
+                            <div class="col-12">
+                                <label for="description">
+                                    Description
+                                </label>
+                                <input id="description" type="text" pInputText formControlName="description" />
+                            </div>
+                        </div> -->
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="footer">
+
+                </ng-template>
+            </p-dialog>
             <p-button (click)="confirmDeleteCategory($event, budgetGroupCategory)" icon="pi pi-trash" severity="danger"
                 [rounded]="true" [text]="true">
             </p-button>
