@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { TransactionResponse } from '../../../models/transaction/transaction.response';
+import { TransactionsComponent } from "../../budget-details-components/transactions/transactions.component";
 
 @Component({
   selector: 'app-budget-group',
@@ -24,6 +25,7 @@ import { TransactionResponse } from '../../../models/transaction/transaction.res
     ConfirmPopupModule,
     CardModule,
     TableModule,
+    TransactionsComponent
   ],
   providers: [
     ConfirmationService, MessageService

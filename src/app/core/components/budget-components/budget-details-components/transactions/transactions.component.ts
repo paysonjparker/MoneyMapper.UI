@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { BudgetResponse } from '../../../models/budget/budget.response';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-transactions',
@@ -10,6 +9,5 @@ import { BudgetResponse } from '../../../models/budget/budget.response';
 })
 export class TransactionsComponent {
 
-  @Input() budgets!: BudgetResponse[];
 
 }
