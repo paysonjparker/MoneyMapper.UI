@@ -19,7 +19,7 @@ import { CategoryResponse } from '../../../models/category/category.response';
 import { ToastModule } from 'primeng/toast';
 import { UpdateCategoryRequest } from '../../../models/category/update-category.request';
 import { CalendarModule } from 'primeng/calendar';
-import { AddExpenseRequest } from '../../../models/expense/add-expense.request';
+import { AddExpenseRequest } from '../../../models/transaction/expense/add-expense.request';
 import { TooltipModule } from 'primeng/tooltip';
 import { BudgetGroupComponent } from "../budget-group/budget-group.component";
 

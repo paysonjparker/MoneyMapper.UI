@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environments } from '../../environments/environments';
-import { ExpenseResponse } from '../../models/expense/expense.response';
-import { AddExpenseRequest } from '../../models/expense/add-expense.request';
-import { UpdateExpenseRequest } from '../../models/expense/update-expense.request';
+import { ExpenseResponse } from '../../models/transaction/expense/expense.response';
+import { AddExpenseRequest } from '../../models/transaction/expense/add-expense.request';
+import { UpdateExpenseRequest } from '../../models/transaction/expense/update-expense.request';
 
 @Injectable({
   providedIn: 'root'

@@ -11,7 +11,7 @@
     <ng-template pTemplate="end">
         <div *ngIf="userIsLoggedIn; else noLoggedInUser" (click)="logoutPanel.toggle($event)">
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                label="{{loggedInUser.fullName.charAt(0).toUpperCase()}}" size="large" />
+                label="{{loggedInUser?.fullName?.charAt(0)?.toUpperCase()}}" size="large" />
             <p-overlayPanel #logoutPanel>
                 <div>
                     <p-button label="Logout" (onClick)="logout()"></p-button>

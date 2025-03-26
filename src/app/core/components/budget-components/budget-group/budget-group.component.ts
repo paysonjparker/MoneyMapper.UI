@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CategoryResponse } from '../../../models/category/category.response';
-import { ExpenseResponse } from '../../../models/expense/expense.response';
-import { IncomeResponse } from '../../../models/income/income.response';
+import { ExpenseResponse } from '../../../models/transaction/expense/expense.response';
+import { IncomeResponse } from '../../../models/transaction/income/income.response';
 import { PanelModule } from 'primeng/panel';
 import { CategoryService } from '../../../services/category/category.service';
 import { ButtonModule } from 'primeng/button';
@@ -10,6 +10,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { TransactionResponse } from '../../../models/transaction/transaction.response';
 
 @Component({
   selector: 'app-budget-group',
@@ -21,6 +23,7 @@ import { CardModule } from 'primeng/card';
     MenuModule,
     ConfirmPopupModule,
     CardModule,
+    TableModule,
   ],
   providers: [
     ConfirmationService, MessageService
@@ -34,14 +37,14 @@ export class BudgetGroupComponent implements OnInit {
 
   @Input() budgetGroupCategory!: CategoryResponse;
 
-  @Input() budgetGroupExpenses!: ExpenseResponse;
+  @Input() budgetGroupExpenses!: ExpenseResponse[];
 
-  @Input() budgetGroupIncomes!: IncomeResponse;
+  @Input() budgetGroupIncomes!: IncomeResponse[];
 
   /**
    * Budget group expenses and incomes.
    */
-  allBudgetGroupTransactions: any[] = [];
+  allBudgetGroupTransactions: TransactionResponse[] = [];
 
   menuOptions: { label?: string; icon?: string; separator?: boolean }[] = [];
 
@@ -63,6 +66,7 @@ export class BudgetGroupComponent implements OnInit {
       }
     ];
     // this.getCategoryById();
+    this.getAllTransactions();
   }
 
   getCategoryById() {
@@ -75,6 +79,19 @@ export class BudgetGroupComponent implements OnInit {
         console.error(error);
       },
     });
+  }
+
+  getAllTransactions() {
+    this.budgetGroupExpenses = this.budgetGroupCategory.expenses ?? [];
+    this.budgetGroupIncomes = this.budgetGroupCategory.incomes ?? [];
+    this.allBudgetGroupTransactions = [
+      ...this.budgetGroupExpenses.map(expense => ({ ...expense, transactionType: 'expense' })),
+      ...this.budgetGroupIncomes.map(expense => ({ ...expense, transactionType: 'income' }))
+    ];
+    console.info(this.budgetGroupExpenses);
+    console.info(this.budgetGroupIncomes);
+    console.info(this.allBudgetGroupTransactions);
+
   }
 
   confirmDeleteCategory(event: Event, category: CategoryResponse) {

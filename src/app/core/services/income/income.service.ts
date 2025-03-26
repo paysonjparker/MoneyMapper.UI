@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environments } from '../../environments/environments';
 import { HttpClient } from '@angular/common/http';
-import { IncomeResponse } from '../../models/income/income.response';
+import { IncomeResponse } from '../../models/transaction/income/income.response';
 import { Observable } from 'rxjs';
-import { UpdateIncomeRequest } from '../../models/income/update-income.request';
-import { AddIncomeRequest } from '../../models/income/add-income.request';
+import { UpdateIncomeRequest } from '../../models/transaction/income/update-income.request';
+import { AddIncomeRequest } from '../../models/transaction/income/add-income.request';
 
 @Injectable({
   providedIn: 'root'

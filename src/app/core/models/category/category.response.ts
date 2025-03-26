@@ -1,5 +1,5 @@
-import { ExpenseResponse } from "../expense/expense.response";
-import { IncomeResponse } from "../income/income.response";
+import { ExpenseResponse } from "../transaction/expense/expense.response";
+import { IncomeResponse } from "../transaction/income/income.response";
 
 export interface CategoryResponse {
     id: number,
