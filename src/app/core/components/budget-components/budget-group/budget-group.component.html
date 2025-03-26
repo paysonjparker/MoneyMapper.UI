@@ -84,29 +84,31 @@
                                     formControlName="description" />
                             </div>
 
-                            <div class="field col-6">
+                            <div class="field col-4">
                                 <div class="row pb-2">
                                     <label for="date">Date</label>
-
                                 </div>
                                 <p-calendar appendTo="body" id="date" class="w-full" formControlName="date" />
                             </div>
-                            <div class="field col-6">
-
+                            <div class="field col-8">
+                                <div class="row pb-3">
+                                    <label for="transactionType">Transaction Type</label>
+                                </div>
+                                <div class="formgroup-inline">
+                                    <div *ngFor="let transactionType of transactionTypes" class="field-checkbox">
+                                        <p-radioButton [inputId]="transactionType.value" [value]="transactionType.value"
+                                            formControlName="transactionType" />
+                                        <label [for]="transactionType.value" class="ml-2">
+                                            {{ transactionType.name }}
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <!-- <div class="grid">
-                            <div class="col-12">
-                                <label for="description">
-                                    Description
-                                </label>
-                                <input id="description" type="text" pInputText formControlName="description" />
-                            </div>
-                        </div> -->
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-
+                    <p-button (onClick)="createTransaction()" icon="pi pi-plus" label="Create"></p-button>
                 </ng-template>
             </p-dialog>
             <p-button (click)="confirmDeleteCategory($event, budgetGroupCategory)" icon="pi pi-trash" severity="danger"

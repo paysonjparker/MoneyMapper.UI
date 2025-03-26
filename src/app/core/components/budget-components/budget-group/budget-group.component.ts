@@ -19,6 +19,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
   selector: 'app-budget-group',
@@ -36,6 +37,7 @@ import { CalendarModule } from 'primeng/calendar';
     InputTextModule,
     InputNumberModule,
     CalendarModule,
+    RadioButtonModule
   ],
   providers: [
     ConfirmationService, MessageService
@@ -63,6 +65,11 @@ export class BudgetGroupComponent implements OnInit {
   createTransactionDialogVisible: boolean = false;
 
   createTransactionAdminForm!: FormGroup;
+
+  transactionTypes: any[] = [
+    { name: 'Income', value: 'income' },
+    { name: 'Expense', value: 'expense' },
+  ];
 
   /**
    *
@@ -155,6 +162,10 @@ export class BudgetGroupComponent implements OnInit {
         validators: [Validators.required],
       }),
     });
+  }
+
+  createTransaction() {
+
   }
 
 
