@@ -1,0 +1,25 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h1>Welcome</h1>
+            <p>Please sign in to continue to your account</p>
+        </div>
+
+        <div class="login-content">
+            <div class="google-signin-container">
+                <div #googleBtn class="google-signin-button"></div>
+            </div>
+
+            <div class="alternative-signin">
+                <p>Or</p>
+                <button type="button" class="manual-signin-btn" (click)="signInWithGoogle()">
+                    Sign in with Google
+                </button>
+            </div>
+        </div>
+
+        <div class="login-footer">
+            <p>By signing in, you agree to our Terms of Service and Privacy Policy.</p>
+        </div>
+    </div>
+</div>

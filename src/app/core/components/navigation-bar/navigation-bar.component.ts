@@ -96,4 +96,8 @@ export class NavigationBarComponent implements OnInit {
     location.reload();
     this.router.navigate(['login']);
   }
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
+  }
 }

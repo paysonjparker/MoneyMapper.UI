@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { AddCategoryRequest } from '../../models/category/add-category.request';
 import { UpdateCategoryRequest } from '../../models/category/update-category.request';
 import { HttpClient } from '@angular/common/http';
-import { environments } from '../../environments/environments';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  readonly moneyMapperApiUrl = environments.moneyMapperLocalApi;
+  readonly moneyMapperApiUrl = environment.moneyMapperLocalApi;
 
   constructor(private http: HttpClient) { }
 

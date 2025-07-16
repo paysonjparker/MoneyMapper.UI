@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environments } from '../../environments/environments';
+import { environment } from '../../environments/environment';
 import { LoginRequest } from '../../models/authentication/login.request';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse } from '../../models/authentication/login.response';
@@ -10,7 +10,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 })
 export class AuthenticationService {
 
-  readonly moneyMapperApiUrl = environments.moneyMapperLocalApi;
+  readonly moneyMapperApiUrl = environment.moneyMapperLocalApi;
 
   private userLoggedIn = new BehaviorSubject<boolean>(false);
   userLoggedInObservable = this.userLoggedIn.asObservable();

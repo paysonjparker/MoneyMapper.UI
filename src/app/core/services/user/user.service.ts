@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environments } from '../../environments/environments';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { UserResponse } from '../../models/user/user.response';
 import { AddUserRequest } from '../../models/user/add-user.request';
@@ -11,7 +11,7 @@ import { UpdateUserRequest } from '../../models/user/update-user.request';
 })
 export class UserService {
 
-  readonly moneyMapperApiUrl = environments.moneyMapperLocalApi;
+  readonly moneyMapperApiUrl = environment.moneyMapperLocalApi;
 
   constructor(private http: HttpClient) { }
 

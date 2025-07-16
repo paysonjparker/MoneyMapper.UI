@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environments } from '../../environments/environments';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IncomeResponse } from '../../models/transaction/income/income.response';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { AddIncomeRequest } from '../../models/transaction/income/add-income.req
 })
 export class IncomeService {
 
-  readonly moneyMapperApiUrl = environments.moneyMapperLocalApi;
+  readonly moneyMapperApiUrl = environment.moneyMapperLocalApi;
 
   constructor(private http: HttpClient) { }
 

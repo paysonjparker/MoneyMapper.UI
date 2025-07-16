@@ -3,7 +3,7 @@ import { BudgetResponse } from '../../models/budget/budget.response';
 import { Observable } from 'rxjs';
 import { AddBudgetRequest } from '../../models/budget/add-budget.request';
 import { UpdateBudgetRequest } from '../../models/budget/update-budget.request';
-import { environments } from '../../environments/environments';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BudgetService {
 
-  readonly moneyMapperApiUrl = environments.moneyMapperLocalApi;
+  readonly moneyMapperApiUrl = environment.moneyMapperLocalApi;
 
   constructor(private http: HttpClient) { }
 

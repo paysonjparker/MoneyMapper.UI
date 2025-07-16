@@ -1,7 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PrimeNGConfig } from 'primeng/api';
 import { NavigationBarComponent } from './core/components/navigation-bar/navigation-bar.component';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
@@ -34,7 +33,7 @@ export class AppComponent implements OnInit {
    * @param primeNgConfig - An injected instance of PrimeNg's {@link PrimeNGConfig}
    */
   constructor(
-    private primeNgConfig: PrimeNGConfig,
+    // private primeNgConfig: PrimeNGConfig,
   ) { }
 
   /**
@@ -42,6 +41,6 @@ export class AppComponent implements OnInit {
    */
   ngOnInit() {
     // Set PrimeNg Input style to 'filled'.
-    this.primeNgConfig.inputStyle = signal<"outlined" | "filled">("filled");
+    // this.primeNgConfig.inputStyle = signal<"outlined" | "filled">("filled");
   }
 }

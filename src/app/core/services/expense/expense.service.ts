@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environments } from '../../environments/environments';
+import { environment } from '../../environments/environment';
 import { ExpenseResponse } from '../../models/transaction/expense/expense.response';
 import { AddExpenseRequest } from '../../models/transaction/expense/add-expense.request';
 import { UpdateExpenseRequest } from '../../models/transaction/expense/update-expense.request';
@@ -11,7 +11,7 @@ import { UpdateExpenseRequest } from '../../models/transaction/expense/update-ex
 })
 export class ExpenseService {
 
-  readonly moneyMapperApiUrl = environments.moneyMapperLocalApi;
+  readonly moneyMapperApiUrl = environment.moneyMapperLocalApi;
 
   constructor(private http: HttpClient) { }
 
